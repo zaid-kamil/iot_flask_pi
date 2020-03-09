@@ -1,0 +1,130 @@
+
+{% extends 'theme.html' %}
+{% block body %}
+<style>
+    .am-menu__wrapper{
+        padding: 0em !important;
+    }
+    body{
+        background-color: rgb(35, 104, 136);
+    }
+</style>
+<div class="jumbotron">
+    <h1 class="display-3">Iot Home Controller</h1>
+    <p class="lead">Click on switches to continue</p>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-warning alert-dismissible fade hide" role="alert">
+                <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-sm-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3 class="card-title">Device 1</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev1" name="dev1" {{s1}} />
+                        <label for="dev1"></label>
+                    </div>
+                    <p class="card-text">Bulb 1</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3 class="card-title">Device 2</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev2" name="dev2" {{s2}} />
+                        <label for="dev2"></label>
+                    </div>
+                    <p class="card-text">Bulb 2</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3 class="card-title">Device 3</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev3" name="dev3" {{s3}} />
+                        <label for="dev3"></label>
+                    </div>
+                    <p class="card-text">Bulb 3</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Device 4</h3>
+                    <div class="slideThree">  
+                        <input type="checkbox" value="None" id="dev4" name="dev4" {{s4}} />
+                        <label for="dev4"></label>
+                    </div>
+                    <p class="card-text">Bulb 4</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+    $(function () {
+        $('#dev1').change(function() {
+            state = Number($(this).is(':checked'))
+            $.get("/update?device=dev1&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.success)
+                    $('.alert').toggleClass('hide').toggleClass('show').html(data.msg)
+                    $('#dev1').parent().css('background','green')
+                }
+            );
+        });
+        $('#dev2').change(function() {
+            state = Number($(this).is(':checked'))
+            $.get("/update?device=dev2&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.success)
+                    $('.alert').toggleClass('hide').toggleClass('show').html(data.msg)
+                    $('#dev2').parent().css('background','green')
+                }
+            );
+            console.log('dev2 status',state)
+        });
+        $('#dev3').change(function() {
+            state = Number($(this).is(':checked'))
+            $.get("/update?device=dev3&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.success)
+                    $('.alert').toggleClass('hide').toggleClass('show').html(data.msg)
+                    $('#dev3').parent().css('background','green')
+                }
+            );
+            console.log('dev3 status',state)
+        });
+        $('#dev4').change(function() {
+            state = Number($(this).is(':checked'))
+            $.get("/update?device=dev4&state="+state,
+                function (data, textStatus, jqXHR) {
+                    console.log("data: "+data.success)
+                    $('.alert').toggleClass('hide').toggleClass('show').html(data.msg)
+                    $('#dev4').parent().css('background','green')
+                }
+            );
+            console.log('dev4 status',state)
+        });
+
+    });    
+</script>
+{% endblock %}
+
